@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="{{ url_for('static', filename='1.png')}}" rel="icon" />
+	<title>ParaPhrase Tool</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+<body>
+
+	<div class="main">
+		<div class="head">
+<a href="http://127.0.0.1:5000/"><img src="{{ url_for('static', filename='1.png')}}" alt="ParaPhrase Logo" width="50" height="50" style="padding-top: 10px;padding-left: 140px; padding-bottom: 10px;"/></a>
+			<h1>ParaPhrase Tool</h1>
+		</div>
+
+		<div class="wrapper">
+			<textarea id='input' placeholder="Type here to paraphrase....">{{a}}</textarea>
+			<textarea id='output'></textarea>
+		</div>
+<div class="container-new">
+		<form method="POST" action="upload" enctype="multipart/form-data">
+      <p style="font-family:Arial;"><input type="file" name="file" class="custom-file-input" accept=".pdf,.txt,.docx"> <br><br>File Type: Pdf, Docx, Txt</p>
+      <p><input type="submit" value="Submit" class="custom"></p>
+    </form>
+</div>
+
+		<div class="container">
+			<button onclick="change()" class='right'>Magic!</button>
+		</div>
+
+		<footer>
+			<p>Created by Ali Husnain || 2022</p>
+		</footer>
+	</div>
+
+</body>
+
+<script type="text/javascript">
+
+	function change(){
+
+		var input = document.querySelector("#input").value;
+		var output = document.querySelector('#output');
+
+
+
+fetch("{{ url_for('phrase') }}", {
+  method: 'POST', 
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+  	data: input
+  }),
+})
+.then(response => response.json())
+.then(data => {
+
+	output.value = data.name;
+
+  console.log('Success:', data.name);
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+}
+
+</script>
+
+</html>

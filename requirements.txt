@@ -1,0 +1,8 @@
+docx2txt==0.8
+Flask==2.0.3
+nltk==3.7
+PyPDF2==1.26.0
+sentence_splitter==1.4
+torch==1.10.2
+transformers==4.16.2
+Werkzeug==2.0.3
